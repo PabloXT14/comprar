@@ -3,7 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "strictNullChecks": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"]
     }
