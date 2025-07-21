@@ -1,5 +1,7 @@
 import { Image, View } from 'react-native'
 
+import { Button } from '@/components/button'
+
 import { styles } from './styles'
 
 export function Home() {
@@ -10,6 +12,8 @@ export function Home() {
         source={require('@/assets/logo.png')}
         style={styles.logo}
       />
+
+      <Button />
     </View>
   )
 }
