@@ -12,4 +12,8 @@ export const styles = StyleSheet.create({
     color: '#09090b',
     fontWeight: 700,
   },
+  logo: {
+    height: 32,
+    width: 134,
+  },
 })
