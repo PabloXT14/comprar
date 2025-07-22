@@ -1,4 +1,3 @@
-import { CircleCheck } from 'lucide-react-native'
 import {
   Text,
   TouchableOpacity,
@@ -6,6 +5,7 @@ import {
 } from 'react-native'
 
 import { FilterStatus } from '@/@types/filter-status'
+import { StatusIcon } from '../status-icon'
 
 import { styles } from './styles'
 
@@ -21,7 +21,7 @@ export function Filter({ status, isActive = false, ...rest }: FilterProps) {
       style={[styles.container, { opacity: isActive ? 1 : 0.5 }]}
       {...rest}
     >
-      <CircleCheck size={18} />
+      <StatusIcon status={status} />
 
       <Text style={styles.text}>
         {status === FilterStatus.DONE ? 'Comprados' : 'Pendentes'}
