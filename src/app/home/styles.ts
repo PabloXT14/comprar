@@ -20,13 +20,23 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 24,
     marginBottom: 24,
   },
-  list: {
+  content: {
     flex: 1,
     width: '100%',
+    gap: 16,
     backgroundColor: colors.backgroundElevated,
     paddingHorizontal: 24,
     paddingTop: 32,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
+  },
+  filters: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    paddingBottom: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.borderPrimary,
   },
 })

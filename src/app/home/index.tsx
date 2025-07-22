@@ -1,8 +1,8 @@
 import { Image, View } from 'react-native'
-
+import { FilterStatus } from '@/@types/filter-status'
 import { Button } from '@/components/button'
+import { Filter } from '@/components/filter'
 import { Input } from '@/components/input'
-
 import { styles } from './styles'
 
 export function Home() {
@@ -20,7 +20,12 @@ export function Home() {
         <Button title="Adicionar" />
       </View>
 
-      <View style={styles.list}>{/* <FlatList /> */}</View>
+      <View style={styles.content}>
+        <View style={styles.filters}>
+          <Filter status={FilterStatus.PENDING} />
+          <Filter isActive status={FilterStatus.DONE} />
+        </View>
+      </View>
     </View>
   )
 }
