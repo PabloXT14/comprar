@@ -1,8 +1,10 @@
 import { StyleSheet } from 'react-native'
 
+import { colors } from '@/styles/colors'
+
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#2C46B1',
+    backgroundColor: colors.accentBrand,
     borderRadius: 8,
     paddingHorizontal: 20,
     height: 48,
@@ -13,7 +15,7 @@ export const styles = StyleSheet.create({
     gap: 12,
   },
   text: {
-    color: '#FFFFFF',
+    color: colors.white,
     fontSize: 14,
     fontWeight: '600',
   },
