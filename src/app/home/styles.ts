@@ -8,11 +8,25 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.backgroundPrimary,
     paddingTop: 62,
-    padding: 24,
-    gap: 24,
   },
   logo: {
     height: 32,
     width: 134,
+    marginBottom: 42,
+  },
+  form: {
+    width: '100%',
+    gap: 8,
+    paddingHorizontal: 24,
+    marginBottom: 24,
+  },
+  list: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: colors.backgroundElevated,
+    paddingHorizontal: 24,
+    paddingTop: 32,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
   },
 })

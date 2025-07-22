@@ -14,9 +14,13 @@ export function Home() {
         style={styles.logo}
       />
 
-      <Input placeholder="O que você precisa comprar?" />
+      <View style={styles.form}>
+        <Input placeholder="O que você precisa comprar?" />
 
-      <Button title="Adicionar" />
+        <Button title="Adicionar" />
+      </View>
+
+      <View style={styles.list}>{/* <FlatList /> */}</View>
     </View>
   )
 }
