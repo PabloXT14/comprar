@@ -13,7 +13,10 @@ export function Home() {
         style={styles.logo}
       />
 
-      <Button />
+      <Button title="Entrar" />
+      <Button title="Criar conta" />
+      <Button title="Salvar" />
+      <Button title="Voltar" />
     </View>
   )
 }
