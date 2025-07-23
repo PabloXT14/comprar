@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
   },
-  filters: {
+  header: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
@@ -38,5 +38,13 @@ export const styles = StyleSheet.create({
     paddingBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: colors.borderPrimary,
+  },
+  clearButton: {
+    marginLeft: 'auto',
+  },
+  clearButtonText: {
+    color: colors.textMuted,
+    fontSize: 12,
+    fontWeight: 600,
   },
 })
