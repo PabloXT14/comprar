@@ -4,6 +4,7 @@ import { FilterStatus } from '@/@types/filter-status'
 import { Button } from '@/components/button'
 import { Filter } from '@/components/filter'
 import { Input } from '@/components/input'
+import { Item } from '@/components/item'
 
 import { styles } from './styles'
 
@@ -33,6 +34,23 @@ export function Home() {
           <TouchableOpacity activeOpacity={0.8} style={styles.clearButton}>
             <Text style={styles.clearButtonText}>Limpar</Text>
           </TouchableOpacity>
+        </View>
+
+        <View>
+          <Item
+            data={{
+              status: FilterStatus.PENDING,
+              description: 'Banana',
+            }}
+            onRemove={() => {
+              // biome-ignore lint/suspicious/noConsole: debug
+              console.log('Removendo item...')
+            }}
+            onToggleStatus={() => {
+              // biome-ignore lint/suspicious/noConsole: debug
+              console.log('Trocando status...')
+            }}
+          />
         </View>
       </View>
     </View>
