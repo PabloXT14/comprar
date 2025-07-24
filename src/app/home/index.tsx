@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View } from 'react-native'
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import { FilterStatus } from '@/@types/filter-status'
 import { Button } from '@/components/button'
@@ -36,22 +36,28 @@ export function Home() {
           </TouchableOpacity>
         </View>
 
-        <View>
-          <Item
-            data={{
-              status: FilterStatus.PENDING,
-              description: 'Banana',
-            }}
-            onRemove={() => {
-              // biome-ignore lint/suspicious/noConsole: debug
-              console.log('Removendo item...')
-            }}
-            onToggleStatus={() => {
-              // biome-ignore lint/suspicious/noConsole: debug
-              console.log('Trocando status...')
-            }}
-          />
-        </View>
+        <ScrollView
+          contentContainerStyle={{ gap: 16, paddingBottom: 64 }}
+          showsVerticalScrollIndicator={false}
+        >
+          {Array.from({ length: 50 }).map((_, index) => (
+            <Item
+              data={{
+                status: FilterStatus.PENDING,
+                description: 'Banana',
+              }}
+              key={`item-${index + 1}`}
+              onRemove={() => {
+                // biome-ignore lint/suspicious/noConsole: debug
+                console.log('Removendo item...')
+              }}
+              onToggleStatus={() => {
+                // biome-ignore lint/suspicious/noConsole: debug
+                console.log('Trocando status...')
+              }}
+            />
+          ))}
+        </ScrollView>
       </View>
     </View>
   )
