@@ -9,7 +9,7 @@ type InputProps = TextInputProps
 export function Input(props: InputProps) {
   return (
     <TextInput
-      placeholderTextColor={colors.textMuted}
+      placeholderTextColor={colors.placeholder}
       style={styles.container}
       {...props}
     />

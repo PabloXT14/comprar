@@ -10,6 +10,7 @@ export const colors = {
 
   textContent: '#1E1E1E',
   textMuted: '#828282',
+  placeholder: '#74798B',
 
   borderPrimary: '#E4E6EC',
   borderSecondary: '#C3C5CB',
