@@ -1,4 +1,4 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 
 import { FilterStatus } from '@/@types/filter-status'
 import { Button } from '@/components/button'
@@ -9,6 +9,7 @@ import { Item } from '@/components/item'
 import { styles } from './styles'
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE]
+const ITEMS = Array.from({ length: 100 }).map((_, index) => String(index))
 
 export function Home() {
   return (
@@ -36,17 +37,16 @@ export function Home() {
           </TouchableOpacity>
         </View>
 
-        <ScrollView
+        <FlatList
           contentContainerStyle={{ gap: 16, paddingBottom: 64 }}
-          showsVerticalScrollIndicator={false}
-        >
-          {Array.from({ length: 50 }).map((_, index) => (
+          data={ITEMS}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
             <Item
               data={{
                 status: FilterStatus.PENDING,
-                description: 'Banana',
+                description: `Item ${item}`,
               }}
-              key={`item-${index + 1}`}
               onRemove={() => {
                 // biome-ignore lint/suspicious/noConsole: debug
                 console.log('Removendo item...')
@@ -56,8 +56,9 @@ export function Home() {
                 console.log('Trocando status...')
               }}
             />
-          ))}
-        </ScrollView>
+          )}
+          showsVerticalScrollIndicator={false}
+        />
       </View>
     </View>
   )
