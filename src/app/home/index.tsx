@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 
 import { FilterStatus } from '@/@types/filter-status'
@@ -22,6 +23,13 @@ const ITEMS = [
 ]
 
 export function Home() {
+  const [filterStatus, setFilterStatus] = useState<FilterStatus>(
+    FilterStatus.PENDING
+  )
+  function handleChangeFilterStatus(status: FilterStatus) {
+    setFilterStatus(status)
+  }
+
   return (
     <View style={styles.container}>
       <Image
@@ -39,7 +47,12 @@ export function Home() {
       <View style={styles.content}>
         <View style={styles.header}>
           {FILTER_STATUS.map((status) => (
-            <Filter key={status} status={status} />
+            <Filter
+              isActive={status === filterStatus}
+              key={status}
+              onPress={() => handleChangeFilterStatus(status)}
+              status={status}
+            />
           ))}
 
           <TouchableOpacity activeOpacity={0.8} style={styles.clearButton}>
