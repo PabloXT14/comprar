@@ -26,6 +26,8 @@ export function Home() {
   const [filterStatus, setFilterStatus] = useState<FilterStatus>(
     FilterStatus.PENDING
   )
+  const [description, setDescription] = useState('')
+
   function handleChangeFilterStatus(status: FilterStatus) {
     setFilterStatus(status)
   }
@@ -39,7 +41,11 @@ export function Home() {
       />
 
       <View style={styles.form}>
-        <Input placeholder="O que você precisa comprar?" />
+        <Input
+          onChangeText={setDescription}
+          placeholder="O que você precisa comprar?"
+          value={description}
+        />
 
         <Button title="Adicionar" />
       </View>
