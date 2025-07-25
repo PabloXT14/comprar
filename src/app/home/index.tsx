@@ -1,5 +1,12 @@
 import { useState } from 'react'
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
+import {
+  Alert,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 
 import { FilterStatus } from '@/@types/filter-status'
 import { Button } from '@/components/button'
@@ -10,26 +17,32 @@ import { Item } from '@/components/item'
 import { styles } from './styles'
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE]
-const ITEMS = [
-  { id: '1', status: FilterStatus.DONE, description: '1 pacote de café' },
-  {
-    id: '2',
-    status: FilterStatus.PENDING,
-    description: '3 pacotes de macarrão',
-  },
-  { id: '3', status: FilterStatus.PENDING, description: '1 pacote de pão' },
-  { id: '4', status: FilterStatus.PENDING, description: '1 pacote de leite' },
-  { id: '5', status: FilterStatus.PENDING, description: '1 pacote de queijo' },
-]
 
 export function Home() {
   const [filterStatus, setFilterStatus] = useState<FilterStatus>(
     FilterStatus.PENDING
   )
   const [description, setDescription] = useState('')
+  // biome-ignore lint/suspicious/noExplicitAny: only for demo
+  const [items, setItems] = useState<any[]>([])
 
   function handleChangeFilterStatus(status: FilterStatus) {
     setFilterStatus(status)
+  }
+
+  function handleAddItem() {
+    if (!description.trim()) {
+      return Alert.alert('Adicionar', 'Informe uma descrição para adicionar.')
+    }
+
+    const newItem = {
+      id: Math.random().toString(36).substring(2),
+      status: FilterStatus.PENDING,
+      description,
+    }
+
+    setItems((state) => [...state, newItem])
+    setDescription('')
   }
 
   return (
@@ -47,7 +60,7 @@ export function Home() {
           value={description}
         />
 
-        <Button title="Adicionar" />
+        <Button onPress={handleAddItem} title="Adicionar" />
       </View>
 
       <View style={styles.content}>
@@ -68,7 +81,7 @@ export function Home() {
 
         <FlatList
           contentContainerStyle={styles.listContent}
-          data={ITEMS}
+          data={items}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           keyExtractor={(item) => item.id}
           ListEmptyComponent={() => (
