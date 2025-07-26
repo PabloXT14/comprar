@@ -21,6 +21,19 @@ async function get(): Promise<ItemStorage[]> {
   }
 }
 
+async function getByStatus(status: FilterStatus): Promise<ItemStorage[]> {
+  try {
+    const items = await get()
+
+    const itemsFiltered = items.filter((item) => item.status === status)
+
+    return itemsFiltered
+  } catch (error) {
+    throw new Error(`GET_ITEMS_BY_STATUS: ${error}`)
+  }
+}
+
 export const itemsStorage = {
   get,
+  getByStatus,
 }
