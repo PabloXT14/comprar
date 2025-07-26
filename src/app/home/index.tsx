@@ -1,4 +1,5 @@
-import { useState } from 'react'
+/** biome-ignore-all lint/correctness/useExhaustiveDependencies: needed */
+import { useEffect, useState } from 'react'
 import {
   Alert,
   FlatList,
@@ -14,6 +15,8 @@ import { Filter } from '@/components/filter'
 import { Input } from '@/components/input'
 import { Item } from '@/components/item'
 
+import { type ItemStorage, itemsStorage } from '@/storage/items-storage'
+
 import { styles } from './styles'
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE]
@@ -23,8 +26,7 @@ export function Home() {
     FilterStatus.PENDING
   )
   const [description, setDescription] = useState('')
-  // biome-ignore lint/suspicious/noExplicitAny: only for demo
-  const [items, setItems] = useState<any[]>([])
+  const [items, setItems] = useState<ItemStorage[]>([])
 
   function handleChangeFilterStatus(status: FilterStatus) {
     setFilterStatus(status)
@@ -44,6 +46,22 @@ export function Home() {
     setItems((state) => [...state, newItem])
     setDescription('')
   }
+
+  async function fetchItems() {
+    try {
+      const itemsFetched = await itemsStorage.get()
+
+      setItems(itemsFetched)
+    } catch (erro) {
+      // biome-ignore lint/suspicious/noConsole: only in dev
+      console.log(erro)
+      Alert.alert('Obter itens', 'Não foi possível obter os itens.')
+    }
+  }
+
+  useEffect(() => {
+    fetchItems()
+  }, [])
 
   return (
     <View style={styles.container}>
