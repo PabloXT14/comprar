@@ -63,6 +63,32 @@ export function Home() {
     }
   }
 
+  async function onClearItems() {
+    try {
+      await itemsStorage.clear()
+      setItems([])
+      setFilterStatus(FilterStatus.PENDING)
+    } catch (error) {
+      // biome-ignore lint/suspicious/noConsole: only in dev
+      console.log(error)
+      Alert.alert('Limpar itens', 'Não foi possível limpar os itens.')
+    }
+  }
+
+  function handleClearItems() {
+    Alert.alert('Limpar itens', 'Deseja realmente limpar todos os itens?', [
+      {
+        text: 'Sim',
+        style: 'destructive',
+        onPress: () => onClearItems(),
+      },
+      {
+        text: 'Não',
+        style: 'cancel',
+      },
+    ])
+  }
+
   async function fetchItemsByStatus() {
     try {
       const itemsFetched = await itemsStorage.getByStatus(filterStatus)
@@ -108,7 +134,11 @@ export function Home() {
             />
           ))}
 
-          <TouchableOpacity activeOpacity={0.8} style={styles.clearButton}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={handleClearItems}
+            style={styles.clearButton}
+          >
             <Text style={styles.clearButtonText}>Limpar</Text>
           </TouchableOpacity>
         </View>
