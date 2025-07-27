@@ -43,10 +43,13 @@ export function Home() {
       description,
     }
 
-    setItems((state) => [newItem, ...state])
-    setDescription('')
-
     await itemsStorage.add(newItem)
+    await fetchItemsByStatus()
+
+    setDescription('')
+    setFilterStatus(FilterStatus.PENDING)
+
+    Alert.alert('Adicionar', `Adicionado ${description}`)
   }
 
   async function fetchItemsByStatus() {
@@ -77,7 +80,7 @@ export function Home() {
         <Input
           onChangeText={setDescription}
           placeholder="O que você precisa comprar?"
-          value={description}
+          value={description} // atribuindo o estado aqui torna o input controlado
         />
 
         <Button onPress={handleAddItem} title="Adicionar" />
