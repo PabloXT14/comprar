@@ -28,6 +28,18 @@ export function Home() {
   const [description, setDescription] = useState('')
   const [items, setItems] = useState<ItemStorage[]>([])
 
+  async function fetchItemsByStatus() {
+    try {
+      const itemsFetched = await itemsStorage.getByStatus(filterStatus)
+
+      setItems(itemsFetched)
+    } catch (erro) {
+      // biome-ignore lint/suspicious/noConsole: only in dev
+      console.log(erro)
+      Alert.alert('Obter itens', 'Não foi possível obter os itens.')
+    }
+  }
+
   function handleChangeFilterStatus(status: FilterStatus) {
     setFilterStatus(status)
   }
@@ -89,15 +101,14 @@ export function Home() {
     ])
   }
 
-  async function fetchItemsByStatus() {
+  async function handleToggleStatus(id: string) {
     try {
-      const itemsFetched = await itemsStorage.getByStatus(filterStatus)
-
-      setItems(itemsFetched)
-    } catch (erro) {
+      await itemsStorage.toggleStatus(id)
+      await fetchItemsByStatus()
+    } catch (error) {
       // biome-ignore lint/suspicious/noConsole: only in dev
-      console.log(erro)
-      Alert.alert('Obter itens', 'Não foi possível obter os itens.')
+      console.log(error)
+      Alert.alert('Alterar status', 'Não foi possível alterar o status.')
     }
   }
 
@@ -158,8 +169,7 @@ export function Home() {
                 handleRemoveItem(item.id)
               }}
               onToggleStatus={() => {
-                // biome-ignore lint/suspicious/noConsole: debug
-                console.log('Trocando status...')
+                handleToggleStatus(item.id)
               }}
             />
           )}

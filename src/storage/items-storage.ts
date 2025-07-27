@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import type { FilterStatus } from '@/@types/filter-status'
+import { FilterStatus } from '@/@types/filter-status'
 import { ITEMS_STORAGE_KEY } from './config'
 
 export type ItemStorage = {
@@ -75,6 +75,29 @@ async function clear(): Promise<void> {
   }
 }
 
+async function toggleStatus(id: string): Promise<void> {
+  try {
+    const items = await get()
+
+    const updatedItems = items.map((item) => {
+      if (item.id === id) {
+        item.status =
+          item.status === FilterStatus.DONE
+            ? FilterStatus.PENDING
+            : FilterStatus.DONE
+
+        return item
+      }
+
+      return item
+    })
+
+    await save(updatedItems)
+  } catch (error) {
+    throw new Error(`TOGGLE_STATUS: ${error}`)
+  }
+}
+
 export const itemsStorage = {
   get,
   getByStatus,
@@ -82,4 +105,5 @@ export const itemsStorage = {
   add,
   remove,
   clear,
+  toggleStatus,
 }
