@@ -55,9 +55,22 @@ async function add(newItem: ItemStorage): Promise<ItemStorage[]> {
   }
 }
 
+async function remove(id: string): Promise<void> {
+  try {
+    const items = await get()
+
+    const updatedItems = items.filter((item) => item.id !== id)
+
+    await save(updatedItems)
+  } catch (error) {
+    throw new Error(`REMOVE_ITEM: ${error}`)
+  }
+}
+
 export const itemsStorage = {
   get,
   getByStatus,
   save,
   add,
+  remove,
 }

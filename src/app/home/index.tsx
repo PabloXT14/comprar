@@ -52,6 +52,17 @@ export function Home() {
     Alert.alert('Adicionar', `Adicionado ${description}`)
   }
 
+  async function handleRemoveItem(id: string) {
+    try {
+      await itemsStorage.remove(id)
+      await fetchItemsByStatus()
+    } catch (error) {
+      // biome-ignore lint/suspicious/noConsole: only in dev
+      console.log(error)
+      Alert.alert('Remover item', 'Não foi possível remover o item.')
+    }
+  }
+
   async function fetchItemsByStatus() {
     try {
       const itemsFetched = await itemsStorage.getByStatus(filterStatus)
@@ -114,8 +125,7 @@ export function Home() {
             <Item
               data={item}
               onRemove={() => {
-                // biome-ignore lint/suspicious/noConsole: debug
-                console.log('Removendo item...')
+                handleRemoveItem(item.id)
               }}
               onToggleStatus={() => {
                 // biome-ignore lint/suspicious/noConsole: debug
