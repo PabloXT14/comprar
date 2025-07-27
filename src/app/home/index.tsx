@@ -43,15 +43,15 @@ export function Home() {
       description,
     }
 
-    setItems((state) => [...state, newItem])
+    setItems((state) => [newItem, ...state])
     setDescription('')
 
     await itemsStorage.add(newItem)
   }
 
-  async function fetchItems() {
+  async function fetchItemsByStatus() {
     try {
-      const itemsFetched = await itemsStorage.get()
+      const itemsFetched = await itemsStorage.getByStatus(filterStatus)
 
       setItems(itemsFetched)
     } catch (erro) {
@@ -62,8 +62,8 @@ export function Home() {
   }
 
   useEffect(() => {
-    fetchItems()
-  }, [])
+    fetchItemsByStatus()
+  }, [filterStatus])
 
   return (
     <View style={styles.container}>
