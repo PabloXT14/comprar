@@ -32,7 +32,7 @@ export function Home() {
     setFilterStatus(status)
   }
 
-  function handleAddItem() {
+  async function handleAddItem() {
     if (!description.trim()) {
       return Alert.alert('Adicionar', 'Informe uma descrição para adicionar.')
     }
@@ -45,6 +45,8 @@ export function Home() {
 
     setItems((state) => [...state, newItem])
     setDescription('')
+
+    await itemsStorage.add(newItem)
   }
 
   async function fetchItems() {
